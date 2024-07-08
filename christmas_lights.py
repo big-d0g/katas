@@ -45,12 +45,12 @@ class ChristmasLights:
 
         return self
 
+    @property
     def grid_info(self) -> dict[str, int]:
-        return {
-            "x": self.x,
-            "y": self.y,
-            "total_lights": self.x * self.y
-        }
+        return {"x": self.x, "y": self.y, "total_lights": self.x * self.y}
 
-if __name__ == "main":
+
+if __name__ == "__main__":
     lights = ChristmasLights(1000, 1000)
+
+    print(lights.grid_info)
