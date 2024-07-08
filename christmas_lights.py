@@ -37,7 +37,13 @@ class ChristmasLights:
                 light.state = State.OFF
 
         return self
-        
+    
+    def toggle(self, x: tuple[int, int], y: tuple[int, int]) -> Self:
+        for light in self.grid:
+            if x[0] >= light.x >= x[1] and y[0] >= light.y >= y[1]:
+                light.state = State.ON if light.state == State.OFF else State.OFF
+
+        return self
 
 
 lights = ChristmasLights(10, 10)
