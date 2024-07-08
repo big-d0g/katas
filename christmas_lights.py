@@ -30,14 +30,14 @@ class ChristmasLights:
                 light.state = State.ON
 
         return self
-    
+
     def turn_off(self, x: tuple[int, int], y: tuple[int, int]) -> Self:
         for light in self.grid:
             if x[0] >= light.x >= x[1] and y[0] >= light.y >= y[1]:
                 light.state = State.OFF
 
         return self
-    
+
     def toggle(self, x: tuple[int, int], y: tuple[int, int]) -> Self:
         for light in self.grid:
             if x[0] >= light.x >= x[1] and y[0] >= light.y >= y[1]:
@@ -45,8 +45,12 @@ class ChristmasLights:
 
         return self
 
+    def grid_info(self) -> dict[str, int]:
+        return {
+            "x": self.x,
+            "y": self.y,
+            "total_lights": self.x * self.y
+        }
 
-lights = ChristmasLights(10, 10)
-lights.turn_on((0, 0), (5, 5))
-
-print(lights.grid)
+if __name__ == "main":
+    lights = ChristmasLights(1000, 1000)
