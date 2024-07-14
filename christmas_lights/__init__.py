@@ -1,6 +1,6 @@
 from enum import Enum
 from dataclasses import dataclass
-from typing import Self
+from typing import Self, TypeVar
 
 
 class State(Enum):
@@ -104,7 +104,7 @@ class ChristmasLightsV2:
                 light.brightness += 2
 
         return self
-    
+
     def count_brightness(self) -> int:
         count = 0
 
@@ -112,7 +112,7 @@ class ChristmasLightsV2:
             count += light.brightness
 
         return count
-    
+
     @property
     def grid_info(self) -> dict[str, int]:
         return {
@@ -120,7 +120,24 @@ class ChristmasLightsV2:
             "y": self.y,
             "total_brightness": self.count_brightness(),
         }
-    
+
+
+T = TypeVar("T", ChristmasLights, ChristmasLightsV2)
+
+
+def santas_instructions(christmas_lights: T) -> T:
+    # Santa's Instructions
+    christmas_lights.turn_on(x=(887, 9), y=(959, 629))
+    christmas_lights.turn_on(x=(454, 398), y=(844, 448))
+    christmas_lights.turn_off(x=(539, 243), y=(559, 965))
+    christmas_lights.turn_off(x=(370, 819), y=(676, 868))
+    christmas_lights.turn_off(x=(145, 40), y=(370, 997))
+    christmas_lights.turn_off(x=(301, 3), y=(808, 453))
+    christmas_lights.turn_on(x=(351, 678), y=(951, 908))
+    christmas_lights.toggle(x=(720, 196), y=(897, 994))
+    christmas_lights.toggle(x=(831, 394), y=(904, 860))
+
+    return christmas_lights
 
 
 if __name__ == "__main__":
@@ -130,15 +147,7 @@ if __name__ == "__main__":
     print(f"START: {start}")
 
     # Santa's Instructions
-    lights.turn_on(x=(887, 9), y=(959, 629))
-    lights.turn_on(x=(454, 398), y=(844, 448))
-    lights.turn_off(x=(539, 243), y=(559, 965))
-    lights.turn_off(x=(370, 819), y=(676, 868))
-    lights.turn_off(x=(145, 40), y=(370, 997))
-    lights.turn_off(x=(301, 3), y=(808, 453))
-    lights.turn_on(x=(351, 678), y=(951, 908))
-    lights.toggle(x=(720, 196), y=(897, 994))
-    lights.toggle(x=(831, 394), y=(904, 860))
+    lights = santas_instructions(lights)
 
     # Get the final state of the Christmas Lights
     end = lights.grid_info
@@ -146,5 +155,3 @@ if __name__ == "__main__":
 
     # After following Santa's instructions, how many lights are on?
     print(f"Lights On: {end['lights_on']}")
-
-
