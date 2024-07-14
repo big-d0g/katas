@@ -151,3 +151,18 @@ if __name__ == "__main__":
 
     # After following Santa's instructions, how many lights are on?
     print(f"Lights On: {end['lights_on']}")
+
+    # Initialize the Christmas Lights V2
+    lights_v2 = ChristmasLightsV2(1000, 1000)
+    start_v2 = lights_v2.grid_info
+    print(f"START V2: {start_v2}")
+
+    # Santa's Instructions
+    lights_v2 = santas_instructions(lights_v2)
+
+    # Get the final state of the Christmas Lights V2
+    end_v2 = lights_v2.grid_info
+    print(f"END V2: {end_v2}")
+
+    # After following Santa's instructions, what is the total brightness of the lights?
+    print(f"Total Brightness: {end_v2['total_brightness']}")
