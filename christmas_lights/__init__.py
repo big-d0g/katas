@@ -19,9 +19,9 @@ class ChristmasLights:
     def __init__(self, x: int, y: int) -> None:
         self.x = x
         self.y = y
-        self.grid = self.init_grid()
+        self.grid = self.create()
 
-    def init_grid(self) -> list[Light]:
+    def create(self) -> list[Light]:
         return [Light(x, y, State.OFF) for x in range(self.x) for y in range(self.y)]
 
     def turn_on(self, x: tuple[int, int], y: tuple[int, int]) -> Self:
