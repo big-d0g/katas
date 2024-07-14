@@ -104,6 +104,14 @@ class ChristmasLightsV2:
                 light.brightness += 2
 
         return self
+    
+    def count_brightness(self) -> int:
+        count = 0
+
+        for light in self.grid:
+            count += light.brightness
+
+        return count
 
 
 if __name__ == "__main__":
