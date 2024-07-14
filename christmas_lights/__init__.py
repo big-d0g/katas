@@ -65,6 +65,47 @@ class ChristmasLights:
         }
 
 
+## Part 2
+
+
+@dataclass
+class LightV2:
+    x: int
+    y: int
+    brightness: int
+
+
+class ChristmasLightsV2:
+    def __init__(self, x: int, y: int) -> None:
+        self.x = x
+        self.y = y
+        self.grid = self.create()
+
+    def create(self) -> list[LightV2]:
+        return [LightV2(x, y, 0) for x in range(self.x) for y in range(self.y)]
+
+    def turn_on(self, x: tuple[int, int], y: tuple[int, int]) -> Self:
+        for light in self.grid:
+            if x[0] >= light.x >= x[1] and y[0] >= light.y >= y[1]:
+                light.brightness += 1
+
+        return self
+
+    def turn_off(self, x: tuple[int, int], y: tuple[int, int]) -> Self:
+        for light in self.grid:
+            if x[0] >= light.x >= x[1] and y[0] >= light.y >= y[1]:
+                light.brightness -= 1 if light.brightness > 0 else 0
+
+        return self
+
+    def toggle(self, x: tuple[int, int], y: tuple[int, int]) -> Self:
+        for light in self.grid:
+            if x[0] >= light.x >= x[1] and y[0] >= light.y >= y[1]:
+                light.brightness += 2
+
+        return self
+
+
 if __name__ == "__main__":
     # Initialize the Christmas Lights
     lights = ChristmasLights(1000, 1000)
@@ -88,3 +129,5 @@ if __name__ == "__main__":
 
     # After following Santa's instructions, how many lights are on?
     print(f"Lights On: {end['lights_on']}")
+
+
