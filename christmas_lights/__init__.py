@@ -65,9 +65,6 @@ class ChristmasLights:
         }
 
 
-## Part 2
-
-
 @dataclass
 class LightV2:
     x: int
@@ -126,7 +123,6 @@ T = TypeVar("T", ChristmasLights, ChristmasLightsV2)
 
 
 def santas_instructions(christmas_lights: T) -> T:
-    # Santa's Instructions
     christmas_lights.turn_on(x=(887, 9), y=(959, 629))
     christmas_lights.turn_on(x=(454, 398), y=(844, 448))
     christmas_lights.turn_off(x=(539, 243), y=(559, 965))
