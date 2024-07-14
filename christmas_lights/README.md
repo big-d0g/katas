@@ -1,6 +1,4 @@
-# Christmas Lights
-
-Link: https://kata-log.rocks/christmas-lights-kata
+# Christmas Lights [Link](https://kata-log.rocks/christmas-lights-kata)
 
 ## Probably a Fire Hazard
 
