@@ -112,6 +112,15 @@ class ChristmasLightsV2:
             count += light.brightness
 
         return count
+    
+    @property
+    def grid_info(self) -> dict[str, int]:
+        return {
+            "x": self.x,
+            "y": self.y,
+            "total_brightness": self.count_brightness(),
+        }
+    
 
 
 if __name__ == "__main__":
