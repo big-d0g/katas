@@ -1,3 +1,3 @@
-## Sources:
+## Sources
 - TDD Manifesto
 - KataLog
