@@ -19,29 +19,34 @@ class ChristmasLights:
     def __init__(self, x: int, y: int) -> None:
         self.x = x
         self.y = y
-        self.grid = self.create()
+        self.grid = [
+            Light(x, y, State.OFF) for x in range(self.x + 1) for y in range(self.y + 1)
+        ]
 
-    def create(self) -> list[Light]:
-        return [Light(x, y, State.OFF) for x in range(self.x) for y in range(self.y)]
-
-    def turn_on(self, x: tuple[int, int], y: tuple[int, int]) -> Self:
+    def turn_on(self, start: tuple[int, int], end: tuple[int, int]) -> Self:
         for light in self.grid:
-            if x[0] >= light.x >= x[1] and y[0] >= light.y >= y[1]:
-                light.state = State.ON
+            if light.x >= start[0] and light.x <= end[0]:
+                if light.y >= start[1] and light.y <= end[1]:
+                    light.state = State.ON
 
         return self
 
-    def turn_off(self, x: tuple[int, int], y: tuple[int, int]) -> Self:
+    def turn_off(self, start: tuple[int, int], end: tuple[int, int]) -> Self:
         for light in self.grid:
-            if x[0] >= light.x >= x[1] and y[0] >= light.y >= y[1]:
-                light.state = State.OFF
+            if light.x >= start[0] and light.x <= end[0]:
+                if light.y >= start[1] and light.y <= end[1]:
+                    light.state = State.OFF
 
         return self
 
-    def toggle(self, x: tuple[int, int], y: tuple[int, int]) -> Self:
+    def toggle(self, start: tuple[int, int], end: tuple[int, int]) -> Self:
         for light in self.grid:
-            if x[0] >= light.x >= x[1] and y[0] >= light.y >= y[1]:
-                light.state = State.ON if light.state == State.OFF else State.OFF
+            if light.x >= start[0] and light.x <= end[0]:
+                if light.y >= start[1] and light.y <= end[1]:
+                    if light.state == State.ON:
+                        light.state = State.OFF
+                    else:
+                        light.state = State.ON
 
         return self
 
@@ -59,7 +64,7 @@ class ChristmasLights:
         return {
             "x": self.x,
             "y": self.y,
-            "total_lights": self.x * self.y,
+            "total_lights": len(self.grid),
             "lights_on": self.count_lights(State.ON),
             "lights_off": self.count_lights(State.OFF),
         }
@@ -79,26 +84,30 @@ class ChristmasLightsV2:
         self.grid = self.create()
 
     def create(self) -> list[LightV2]:
-        return [LightV2(x, y, 0) for x in range(self.x) for y in range(self.y)]
+        return [LightV2(x, y, 0) for x in range(self.x + 1) for y in range(self.y + 1)]
 
-    def turn_on(self, x: tuple[int, int], y: tuple[int, int]) -> Self:
+    def turn_on(self, start: tuple[int, int], end: tuple[int, int]) -> Self:
         for light in self.grid:
-            if x[0] >= light.x >= x[1] and y[0] >= light.y >= y[1]:
-                light.brightness += 1
+            if light.x >= start[0] and light.x <= end[0]:
+                if light.y >= start[1] and light.y <= end[1]:
+                    light.brightness += 1
 
         return self
 
-    def turn_off(self, x: tuple[int, int], y: tuple[int, int]) -> Self:
+    def turn_off(self, start: tuple[int, int], end: tuple[int, int]) -> Self:
         for light in self.grid:
-            if x[0] >= light.x >= x[1] and y[0] >= light.y >= y[1]:
-                light.brightness -= 1 if light.brightness > 0 else 0
+            if light.x >= start[0] and light.x <= end[0]:
+                if light.y >= start[1] and light.y <= end[1]:
+                    if light.brightness > 0:
+                        light.brightness -= 1
 
         return self
 
-    def toggle(self, x: tuple[int, int], y: tuple[int, int]) -> Self:
+    def toggle(self, start: tuple[int, int], end: tuple[int, int]) -> Self:
         for light in self.grid:
-            if x[0] >= light.x >= x[1] and y[0] >= light.y >= y[1]:
-                light.brightness += 2
+            if light.x >= start[0] and light.x <= end[0]:
+                if light.y >= start[1] and light.y <= end[1]:
+                    light.brightness += 2
 
         return self
 
@@ -115,6 +124,7 @@ class ChristmasLightsV2:
         return {
             "x": self.x,
             "y": self.y,
+            "total_lights": len(self.grid),
             "total_brightness": self.count_brightness(),
         }
 
@@ -123,15 +133,15 @@ T = TypeVar("T", ChristmasLights, ChristmasLightsV2)
 
 
 def santas_instructions(christmas_lights: T) -> T:
-    christmas_lights.turn_on(x=(887, 9), y=(959, 629))
-    christmas_lights.turn_on(x=(454, 398), y=(844, 448))
-    christmas_lights.turn_off(x=(539, 243), y=(559, 965))
-    christmas_lights.turn_off(x=(370, 819), y=(676, 868))
-    christmas_lights.turn_off(x=(145, 40), y=(370, 997))
-    christmas_lights.turn_off(x=(301, 3), y=(808, 453))
-    christmas_lights.turn_on(x=(351, 678), y=(951, 908))
-    christmas_lights.toggle(x=(720, 196), y=(897, 994))
-    christmas_lights.toggle(x=(831, 394), y=(904, 860))
+    christmas_lights.turn_on(start=(887, 9), end=(959, 629))
+    christmas_lights.turn_on(start=(454, 398), end=(844, 448))
+    christmas_lights.turn_off(start=(539, 243), end=(559, 965))
+    christmas_lights.turn_off(start=(370, 819), end=(676, 868))
+    christmas_lights.turn_off(start=(145, 40), end=(370, 997))
+    christmas_lights.turn_off(start=(301, 3), end=(808, 453))
+    christmas_lights.turn_on(start=(351, 678), end=(951, 908))
+    christmas_lights.toggle(start=(720, 196), end=(897, 994))
+    christmas_lights.toggle(start=(831, 394), end=(904, 860))
 
     return christmas_lights
 
